@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message"
+         role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <a th:href="@{/students/new}">addStudent</a>
+    <table border="1">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">name</th>
+            <th scope="col">email</th>
+            <th scope="col">address</th>
+            <th scope="col">action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <th>[[${student.id}]]</th>
+            <th>[[${student.name}]]</th>
+            <th>[[${student.email}]]</th>
+            <th>[[${student.address}]]</th>
+            <th>
+                <button>edit</button>
+                <button>delete</button>
+            </th>
+<!--            <th th:text scope="row">${student.id}</th>-->
+<!--            <td th:text>${student.name}</td>-->
+<!--            <td th:text>${student.email}</td>-->
+<!--            <td th:text>${student.address}</td>-->
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

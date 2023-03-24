@@ -17,5 +17,13 @@ public class StudentService {
         List<Student> all = studentRepository.findAll();
         return all;
     }
-
+    public Student addStudent(){
+        return new Student();
+    }
+    public Student saveStudent(Student student){
+        return studentRepository.save(student);
+    }
+    public void deleteById(Integer id){
+         studentRepository.deleteById(id);
+    }
 }
