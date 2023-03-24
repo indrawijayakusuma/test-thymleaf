@@ -43,9 +43,9 @@ public class StudentController {
         studentService.saveStudent(student);
         return "redirect:/students";
     }
-    @DeleteMapping("/students/{id}")
+    @GetMapping("/students/delete/{id}")
     public String delete(@PathVariable Integer id){
         studentService.deleteById(id);
-        return null;
+        return "redirect:/students";
     }
 }

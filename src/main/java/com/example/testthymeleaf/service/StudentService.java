@@ -26,4 +26,8 @@ public class StudentService {
     public void deleteById(Integer id){
          studentRepository.deleteById(id);
     }
+//    public Student editById(){
+//        return studentRepository.save();
+//    }
+
 }

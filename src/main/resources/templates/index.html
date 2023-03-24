@@ -30,8 +30,8 @@
             <th>[[${student.email}]]</th>
             <th>[[${student.address}]]</th>
             <th>
-                <button>edit</button>
-                <button>delete</button>
+<!--                <button><a th:href="@{/students/update/{id}(id=${students.id})">update</a></button>-->
+                <button><a th:href="@{'/students/delete/' + ${student.id}}">delete</a></button>
             </th>
 <!--            <th th:text scope="row">${student.id}</th>-->
 <!--            <td th:text>${student.name}</td>-->
