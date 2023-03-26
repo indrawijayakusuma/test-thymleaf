@@ -33,7 +33,7 @@ public class StudentController {
         return "index";
     }
     @GetMapping("/students/new")
-    public String addStudent(Model model){
+    public String addStudentForm(Model model){
         Student student = studentService.addStudent();
         model.addAttribute("students", student);
         return "studentform";
@@ -47,5 +47,11 @@ public class StudentController {
     public String delete(@PathVariable Integer id){
         studentService.deleteById(id);
         return "redirect:/students";
+    }
+    @GetMapping("/students/update/{id}")
+    public String editStudentForm(@PathVariable Integer id, Model model){
+        Student byid = studentService.findByid(id);
+        model.addAttribute("students", byid);
+        return "updateForm";
     }
 }

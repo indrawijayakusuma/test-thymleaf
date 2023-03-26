@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class StudentService {
@@ -17,6 +18,10 @@ public class StudentService {
         List<Student> all = studentRepository.findAll();
         return all;
     }
+    public Student findByid(Integer id){
+        Student byId = studentRepository.findById(id).get();
+        return byId;
+    }
     public Student addStudent(){
         return new Student();
     }
@@ -26,8 +31,4 @@ public class StudentService {
     public void deleteById(Integer id){
          studentRepository.deleteById(id);
     }
-//    public Student editById(){
-//        return studentRepository.save();
-//    }
-
 }
