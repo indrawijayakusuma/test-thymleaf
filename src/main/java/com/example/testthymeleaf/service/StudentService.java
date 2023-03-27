@@ -18,6 +18,10 @@ public class StudentService {
         List<Student> all = studentRepository.findAll();
         return all;
     }
+    public Student findByid(Integer id){
+        Student byId = studentRepository.findById(id).get();
+        return byId;
+    }
     public Student addStudent(){
         return new Student();
     }
@@ -30,5 +34,4 @@ public class StudentService {
     public Optional<Student> editById(Integer id){
         return studentRepository.findById(id);
     }
-
 }
