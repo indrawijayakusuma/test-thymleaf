@@ -3,12 +3,10 @@ package com.example.testthymeleaf.controller;
 import com.example.testthymeleaf.entity.Student;
 import com.example.testthymeleaf.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +26,12 @@ public class StudentController {
 //        } catch (Exception e) {
 //            model.addAttribute("message", e.getMessage());
 //        }
-        List<Student> all = studentService.getAll();
-        model.addAttribute("students", all);
-        return "index";
+
+//        List<Student> all = studentService.getAll();
+//        model.addAttribute("students", all);
+//        return "index";
+        return paginate(1,"name", "asc",model);
+
     }
     @GetMapping("/students/new")
     public String addStudentForm(Model model){
@@ -54,4 +55,27 @@ public class StudentController {
         model.addAttribute("students", byid);
         return "updateForm";
     }
+
+    @GetMapping("/students/page/{no}")
+    public String paginate(@PathVariable(value = "no") int pageNo,
+        @RequestParam("sortField") String sortField,
+        @RequestParam("sortDir") String sortDir, Model model
+        ){
+        int pageSize = 5;
+
+        Page<Student> page = studentService.paginate(pageNo, pageSize, sortField, sortDir);
+        List<Student> studentList = new ArrayList<Student>();
+        studentList = page.getContent();
+
+        model.addAttribute("currentPage" , pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("students", studentList);
+
+        model.addAttribute("sortField" , sortField);
+        model.addAttribute("sortDir" , sortDir);
+        model.addAttribute("reverseSortDir" , sortDir.equals("asc")?"desc":"asc");
+        return "index";
+    }
+
 }
