@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class StudentService {
@@ -26,8 +27,8 @@ public class StudentService {
     public void deleteById(Integer id){
          studentRepository.deleteById(id);
     }
-//    public Student editById(){
-//        return studentRepository.save();
-//    }
+    public Optional<Student> editById(Integer id){
+        return studentRepository.findById(id);
+    }
 
 }
