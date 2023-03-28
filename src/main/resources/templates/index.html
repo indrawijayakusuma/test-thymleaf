@@ -26,20 +26,25 @@
     </div>
     <div style="border-style: none; margin: auto; width: 100%; padding: 10px; text-align: center; margin-top: 100px;">
         <a th:href="@{/students/new}">addStudent</a>
+        <form th:action="@{'/students/page/' + ${currentPage}}" method="get">
+            <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" class="form-control"/>
+            &nbsp;
+            <input type="submit" value="Search" />
+        </form>
         <table style=" margin: auto; width: 50%; padding: 10px; text-align: center; border-radius: 5px; margin-top: 30px;">
             <thead>
                 <tr>
                     <th scope="col">
-                        <a th:href="@{'/students/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">Id</a>
+                        <a th:href="@{'/students/page/' + ${currentPage} + '?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'sortField=id&sortDir=' + ${reverseSortDir}}">Id</a>
                     </th>
                     <th scope="col">
-                        <a th:href="@{'/students/page/' +${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">name</a>
+                        <a th:href="@{'/students/page/' + ${currentPage} + '?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'sortField=name&sortDir=' + ${reverseSortDir}}">name</a>
                     </th>
                     <th scope="col">
-                        <a th:href="@{'/students/page/' +${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">email</a>
+                        <a th:href="@{'/students/page/' + ${currentPage} + '?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'sortField=email&sortDir=' + ${reverseSortDir}}">email</a>
                     </th>
                     <th scope="col">
-                        <a th:href="@{'/students/page/' +${currentPage} + '?sortField=address&sortDir=' + ${reverseSortDir}}">address</a>
+                        <a th:href="@{'/students/page/' + ${currentPage} + '?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'sortField=address&sortDir=' + ${reverseSortDir}}">address</a>
                     </th>
 
                     <th scope="col">action</th>
