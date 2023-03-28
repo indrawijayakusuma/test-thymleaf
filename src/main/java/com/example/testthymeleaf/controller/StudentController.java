@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StudentController {
@@ -30,7 +31,7 @@ public class StudentController {
 //        List<Student> all = studentService.getAll();
 //        model.addAttribute("students", all);
 //        return "index";
-        return paginate(1,"name", "asc",model);
+        return paginate(null,1,"name", "asc",model);
 
     }
     @GetMapping("/students/new")
@@ -57,13 +58,22 @@ public class StudentController {
     }
 
     @GetMapping("/students/page/{no}")
-    public String paginate(@PathVariable(value = "no") int pageNo,
-        @RequestParam("sortField") String sortField,
-        @RequestParam("sortDir") String sortDir, Model model
+    public String paginate(
+        @RequestParam(required = false) String keyword,
+        @PathVariable(value = "no") int pageNo,
+        @RequestParam(defaultValue = "name") String sortField,
+        @RequestParam(defaultValue = "asc") String sortDir, Model model
         ){
         int pageSize = 5;
 
-        Page<Student> page = studentService.paginate(pageNo, pageSize, sortField, sortDir);
+        Page<Student> page = null;
+        if (keyword == null){
+            page = studentService.paginate(pageNo, pageSize, sortField, sortDir);
+        }else {
+             page = studentService.searching(pageNo, pageSize, sortField, sortDir, keyword);
+             model.addAttribute("keyword", keyword);
+        }
+
         List<Student> studentList = new ArrayList<Student>();
         studentList = page.getContent();
 
