@@ -74,7 +74,7 @@
             </div>
             <div>
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/students/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                    <a th:if="${currentPage != i}" th:href="@{'/students/page/' + ${i} + '?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
                     <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                 </span>
             </div>
